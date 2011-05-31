@@ -30,6 +30,7 @@ import XMonad.Prompt.Man
 import XMonad.Prompt.Shell
 import XMonad.Prompt.Ssh
 import XMonad.Util.Run
+import XMonad.Util.NamedScratchpad
 
 import System.IO
 import Graphics.X11.Types
@@ -57,6 +58,15 @@ screenshotPrompt c =
   io $ spawn ("screenshot " ++ name)
 
 myWorkspaceKeys = [xK_u, xK_i, xK_a, xK_e, xK_o, xK_1, xK_2, xK_3, xK_4, xK_5]
+
+rightSmallRectFloat = customFloating $ W.RationalRect (1/2) (1/6) (1/2) (2/3)
+
+------------------------------------------------------------------------
+-- scratchpads
+scratchpads = [
+    NS "hamster" "hamster-standalone" (className =? "Hamster-standalone") rightSmallRectFloat
+    ]
+
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -184,6 +194,9 @@ myKeys sp conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
     -- Restart xmonad
     , ((modMask , xK_x), restart "xmonad" True)
+
+    -- open the project hamster scratchpad
+    , ((modMask .|. shiftMask, xK_s), namedScratchpadAction scratchpads "hamster")
     ]
     ++
 
@@ -271,7 +284,7 @@ myLayout = smartBorders (avoidStruts (toggleLayouts Full (withIM (1%7) (ClassNam
 -- To match on the WM_NAME, you can use 'title' in the same way that
 -- 'className' and 'resource' are used below.
 --
-myManageHook = composeAll
+myManageHook = namedScratchpadManageHook scratchpads <+> composeAll
     [ className =? "MPlayer" --> doFloat
     , className =? "Gimp" --> doFloat
     , className =? "feh" --> doFloat
