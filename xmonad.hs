@@ -56,7 +56,7 @@ screenshotPrompt c =
   inputPrompt c "Screenshot name" ?+ \name ->
   io $ spawn ("screenshot " ++ name)
 
-myWorkspaceKeys = [xK_u, xK_i, xK_a, xK_e, xK_o]
+myWorkspaceKeys = [xK_u, xK_i, xK_a, xK_e, xK_o, xK_1, xK_2, xK_3, xK_4, xK_5]
 
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
@@ -199,11 +199,6 @@ myKeys sp conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
         | (i, k) <- zip (XMonad.workspaces conf) myWorkspaceKeys]
 
     ++
-    -- mod4-[1..9] Switch to window N
-    [((modMask, k), focusNth i)
-        | (i, k) <- zip [0 .. 8] [xK_1 ..]]
-
-    ++
     -- mod-{s,t}, Switch to physical/Xinerama screens 1 or 2
     -- mod-shift-{s,t}, Move client to screen 1 or 2
     [((modMask .|. m, key), f sc)
@@ -325,7 +320,7 @@ main = do
         borderWidth = 1,
         modMask = mod4Mask,
         numlockMask = mod2Mask,
-        workspaces = ["u","i","a","e","o"],
+        workspaces = ["u","i","a","e","o","1","2","3","4","5"],
         normalBorderColor = "darkblue",
         focusedBorderColor = "red",
 
