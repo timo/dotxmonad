@@ -64,7 +64,7 @@ rightSmallRectFloat = customFloating $ W.RationalRect (1/2) (1/6) (1/2) (2/3)
 ------------------------------------------------------------------------
 -- scratchpads
 scratchpads = [
-    NS "hamster" "hamster-standalone" (className =? "Hamster-standalone") rightSmallRectFloat
+    NS "hamster" "hamster-standalone" (title =? "Time Tracker") rightSmallRectFloat
     ]
 
 
@@ -193,10 +193,10 @@ myKeys sp conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
      , ((modMask .|. shiftMask, xK_l),  killAllOtherCopies)
 
     -- Restart xmonad
-    , ((modMask , xK_x), restart "xmonad" True)
+    -- , ((modMask , xK_x), restart "xmonad" True)
 
     -- open the project hamster scratchpad
-    , ((modMask .|. shiftMask, xK_s), namedScratchpadAction scratchpads "hamster")
+    , ((modMask .|. shiftMask, xK_h), namedScratchpadAction scratchpads "hamster")
     ]
     ++
 
